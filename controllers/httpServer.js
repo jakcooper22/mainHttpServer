@@ -11,11 +11,17 @@ http.createServer(function (req, res) {
       res.write(data);
       res.end();
     });
-  }else {
-    res.end();
+  }
+  if (req.ur == "/projects/index.html") {
+    fs.readFile('../projects/index.html', function(err, data) {
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      res.write(data);
+      res.end();
+    });
   }
 
-  console.log('processed some stuff');
+  console.log(req.url);
+
 }).listen(2222);
 
 console.log('running');
