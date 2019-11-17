@@ -24,7 +24,7 @@ http.createServer(function (req, res) {
       res.end();
     });
   }
-  if (req.url == '/projects/index.html') {
+  if (req.url == "/projects/index.html") {
     console.log("hit projects/html")
     fs.readFile('../../index.html', function(err, data) {
       res.writeHead(200, {'Content-Type': 'text/html'});
