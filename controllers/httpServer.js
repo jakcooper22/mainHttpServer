@@ -13,7 +13,7 @@ http.createServer(function (req, res) {
     });
   }
   if (req.ur == "/projects/index.html") {
-    fs.readFile('../projects/index.html', function(err, data) {
+    fs.readFile('../../projects/index.html', function(err, data) {
       res.writeHead(200, {'Content-Type': 'text/html'});
       res.write(data);
       res.end();
