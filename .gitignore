@@ -1,0 +1,4 @@
+baseSite/bin
+baseSite/node_modules
+package.json
+package-lock.json
