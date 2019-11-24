@@ -87,7 +87,7 @@ body {font-family: Verdana, sans-serif;}
 </head>
 <body>
 
-<h1>CSS Calendar</h1>
+<h1>Calendar</h1>
 
 <div class="month">      
   <ul>
@@ -125,17 +125,23 @@ body {font-family: Verdana, sans-serif;}
 
 <script>
     date2 = new Date();
-    date3 = new Date()
-    document.write(date3);
+    date3 = new Date(year1,date2.getMonth(), 1);
+    document.write(String(date3).substring(0,3));
     days = new Date(year1, date2.getMonth() + 1, 0);
     document.write(days);
     test1 = String(days);
     test1 = test1.substring(8,10)
     document.write(test1);
 
-    document.write("<ul class=\"days\">")  
+    var daysArr = {"Mon": 1,"Tue": 2, "Wed":3, "Thur":4, "Fri":5, "Sat":6, "Sun":7};
+
+    document.write("<ul class=\"days\">")
+    for (y=1;y <= daysArr[String(date3).substring(0,3)];y++) {
+      document.write("<li> </li>");
+    }  
     for(i = 1;i <= test1; i++ ) {
-        document.write("<li>"+i+"</li>");
+      
+      document.write("<li>"+i+"</li>");
     }
     document.write("</ul>");
 </script>
