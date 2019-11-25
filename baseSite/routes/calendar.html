@@ -70,6 +70,10 @@ body {font-family: Verdana, sans-serif;}
   color: white !important
 }
 
+.days :hover {
+  background-color: aqua;
+}
+
 /* Add media queries for smaller screens */
 @media screen and (max-width:720px) {
   .weekdays li, .days li {width: 13.1%;}
@@ -126,24 +130,41 @@ body {font-family: Verdana, sans-serif;}
 <script>
     date2 = new Date();
     date3 = new Date(year1,date2.getMonth(), 1);
-    document.write(String(date3).substring(0,3));
+    document.write(String(date3).substring(0,3) + " - Beginning day of the month <br>");
     days = new Date(year1, date2.getMonth() + 1, 0);
-    document.write(days);
+    document.write(days + "<br>");
     test1 = String(days);
     test1 = test1.substring(8,10)
-    document.write(test1);
+    document.write(test1 + " - last day");
 
     var daysArr = {"Mon": 1,"Tue": 2, "Wed":3, "Thur":4, "Fri":5, "Sat":6, "Sun":7};
 
     document.write("<ul class=\"days\">")
-    for (y=1;y <= daysArr[String(date3).substring(0,3)];y++) {
+    for (y=1;y < daysArr[String(date3).substring(0,3)];y++) {
       document.write("<li> </li>");
     }  
     for(i = 1;i <= test1; i++ ) {
-      
-      document.write("<li>"+i+"</li>");
+      // document.write(parseInt(String(date2).substr(8,2),10))
+      if (i === parseInt(String(date2).substr(8,2),10)) {
+        document.write("<li><span id=selector1 class=\"active\">" + i + "</span></li>");
+      } else {
+        document.write("<li id=selector1>"+i+"</li>");
+      }
+      // document.write("<li>"+i+"</li>");
     }
     document.write("</ul>");
+</script>
+
+<script>
+  console.log(document.getElementById("selector1").value);
+</script>
+
+<script src="/javascripts/calendarHelper.js">
+  // document.write(calendarHelper.test11());
+</script>
+
+<script>
+  document.write(test11);
 </script>
 
 </body>
