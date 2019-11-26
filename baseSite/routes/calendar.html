@@ -146,17 +146,18 @@ body {font-family: Verdana, sans-serif;}
     for(i = 1;i <= test1; i++ ) {
       // document.write(parseInt(String(date2).substr(8,2),10))
       if (i === parseInt(String(date2).substr(8,2),10)) {
-        document.write("<li><span id=selector1 class=\"active\">" + i + "</span></li>");
+        document.write("<li id=selector"+i+" value="+ i +" onclick=\"clickTest(this,id)\"><span  class=\"active\">" + i + "</span></li>");
       } else {
-        document.write("<li id=selector1>"+i+"</li>");
+        document.write("<li id=selector"+ i +" value="+i+" onclick=\"clickTest(this,id)\">"+ i +"</li>");
       }
-      // document.write("<li>"+i+"</li>");
     }
     document.write("</ul>");
 </script>
 
 <script>
-  console.log(document.getElementById("selector1").value);
+  function clickTest(elmnt, click1) {
+    document.getElementById("appTest").innerHTML = document.getElementById(click1).value;
+  }
 </script>
 
 <script src="/javascripts/calendarHelper.js">
@@ -164,8 +165,16 @@ body {font-family: Verdana, sans-serif;}
 </script>
 
 <script>
+  document.write("<p>Showing events for this day - </p>");
   document.write(test11);
 </script>
+
+<form action="/actionTest" method="post">
+ 
+  <p type="text" name="firstname" value="Mickey">
+
+  <input type="submit" value="Submit">
+</form> 
 
 </body>
 </html>
