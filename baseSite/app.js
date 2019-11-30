@@ -29,37 +29,7 @@ app.use(bodyParser.json());
 app.use('/', calendarRouter);
 app.use('/', indexRouter);
 
-
-function mdGet (urlString) {
-  // MongoClient.connect(urlString, function(err, db){
-  //   if (err) throw err;
-  //   var dbo = db.db("mydb");
-  //   var cursor = dbo.collection("CalendarMast").find();
-  //   cursor.forEach(function(err,item){
-  //     if (item != null) {
-  //       str = "<p> test bitch </p>";
-  //     }
-  //     res.send(str);
-  //     db.close();
-  //   });
-    // dbo.collection("CalendarMast").findOne({}, function(err, result) {
-    //   console.log('something');
-    //   if (err) throw err;
-    //   // console.log(result.name);
-    //   var test1 = result;
-    //   console.log(test1 + 'in mdGet')
-    //   return test1;
-    //   db.close();
-    // });
-  // });
-}
-
 app.get('/actionTest', function(req,res){
-  // var test = mdGet(url);
-  // console.log(mdGet(url));
-  // res.setHeader('Content-Type', 'text/html');
-  // res.writeHead(200, { 'Content-Type': 'text/html' });
-  // res.status(200);
   MongoClient.connect(urlString, function(err, db){
     str = "";
     if (err) throw err;
@@ -69,25 +39,6 @@ app.get('/actionTest', function(req,res){
       res.render('actionTest.ejs', {quotes: result});
     });
   });
-
-  // res.setHeader('Content-Type', 'text/text');
-  //     res.writeHead(200, { 'Content-Type': 'text/text' });
-  //     res.write(str);
-  //     console.log("dunno");
-  //     res.end();
-  //     db.close();
-  // res.write("<p>something worked - " + test + " - is showing</p>");
-  // // res.write("<br>");
-  // console.log("<p>something worked - " + test + " - is showing</p>");
-  // while (test!=null){
-  //   console.log("<p>something worked - " + test + " - is showing</p>");
-  //   res.write("<p>something worked - " + test + " - is showing</p>");
-  //   if (test!=null) {
-  //     res.end();
-  //   }
-  // }
-  
-  // res.end();
 });
 
 // catch 404 and forward to error handler
