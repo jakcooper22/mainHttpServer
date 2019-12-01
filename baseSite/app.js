@@ -30,11 +30,14 @@ app.use('/', calendarRouter);
 app.use('/', indexRouter);
 
 app.get('/actionTest', function(req,res){
+  console.log(req.query);
   MongoClient.connect(urlString, function(err, db){
     str = "";
     if (err) throw err;
     var dbo = db.db("mydb");
-    dbo.collection("CalendarMast").find().toArray((err, result) => {
+    var query = {month:req.query.month, date:req.query.date};
+    console.log(query);
+    dbo.collection("CalendarMast").find(query).toArray((err, result) => {
       if (err) throw err;
       res.render('actionTest.ejs', {quotes: result});
     });

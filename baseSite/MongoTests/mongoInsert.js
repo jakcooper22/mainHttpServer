@@ -4,10 +4,14 @@ var url = "mongodb://localhost:27017/";
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
-  var myobj = { name: "Whatevs Company Inc", address: "Your Mom Highway 37" };
-  dbo.collection("CalendarMast").insertOne(myobj, function(err, res) {
-    if (err) throw err;
-    console.log("1 document inserted");
-    db.close();
-  });
+  for (i=1;i <= 31;i++){
+    var myobj = { month: "Dec", date: String(i), notes: "list of appointments" };
+    dbo.collection("CalendarMast").insertOne(myobj, function(err, res) {
+      if (err) throw err;
+      
+      db.close();
+    });
+  }
+  console.log(i + " - Documents Inserted");
+
 });
