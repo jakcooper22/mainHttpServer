@@ -7,11 +7,15 @@ var bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index');
 var calendarRouter = require('./routes/calendar');
+var loginRouter = require('./routes/login');
+var loginSigUpRouter = require('./routes/loginSigUp');
 
 var MongoClient = require('mongodb').MongoClient;
 var urlString = "mongodb://localhost:27017/";
 
 var app = express();
+
+// require('./config/passport')(passport);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,6 +32,8 @@ app.use(bodyParser.json());
 
 app.use('/', calendarRouter);
 app.use('/', indexRouter);
+app.use('/', loginRouter);
+app.use('/', loginSigUpRouter);
 
 app.get('/actionTest', function(req,res){
   console.log(req.query);
@@ -43,6 +49,11 @@ app.get('/actionTest', function(req,res){
     });
   });
 });
+
+// app.get('/loginSigUp', function(req,res){
+//   console.log('wtf');
+//   res.render('loginSigUp.ejs');
+// });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
