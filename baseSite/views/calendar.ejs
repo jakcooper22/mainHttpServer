@@ -189,8 +189,10 @@ function loadDoc(elem, test1, mntStr) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("appTest").innerHTML =
-      this.responseText;
+      for (i=1;i<=5;i++){
+        document.getElementById("appTest").innerHTML =
+        this.responseText;
+      }
     }
   };
   xhttp.open("GET", "/actionTest?month=" + mntStr + "&date=" + test1, true);
