@@ -36,7 +36,9 @@ app.use('/', loginRouter);
 app.use('/', loginSigUpRouter);
 
 app.get('/actionTest', function(req,res){
-  console.log(req.query);
+
+  // set trainingWheelProtocol - true or false value, with some special id 
+
   MongoClient.connect(urlString, function(err, db){
     str = "";
     if (err) throw err;
@@ -45,6 +47,7 @@ app.get('/actionTest', function(req,res){
     console.log(query);
     dbo.collection("CalendarMast").find(query).toArray((err, result) => {
       if (err) throw err;
+      result.
       res.render('actionTest.ejs', {quotes: result});
     });
   });
