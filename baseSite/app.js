@@ -15,6 +15,8 @@ var urlString = "mongodb://localhost:27017/";
 
 var app = express();
 
+const nodemailer = require("nodemailer");
+
 // require('./config/passport')(passport);
 
 // view engine setup
@@ -36,6 +38,29 @@ app.use('/', loginRouter);
 app.use('/', loginSigUpRouter);
 
 app.get('/actionTest', function(req,res){
+
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'jakcooper22@gmail.com',
+      pass: 'sara1balls'
+    }
+  });
+  
+  var mailOptions = {
+    from: 'jakcooper22@gmail.com',
+    to: 'jakcooper22@gmail.com',
+    subject: 'Sending Email using Node.js',
+    text: 'That was easy!'
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
 
   // set trainingWheelProtocol - true or false value, with some special id 
 
