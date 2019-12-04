@@ -47,7 +47,7 @@ app.get('/actionTest', function(req,res){
     console.log(query);
     dbo.collection("CalendarMast").find(query).toArray((err, result) => {
       if (err) throw err;
-      result.
+      // res.send(result.month, result.date);
       res.render('actionTest.ejs', {quotes: result});
     });
   });
