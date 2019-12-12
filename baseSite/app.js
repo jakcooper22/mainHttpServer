@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 
+const dotenv = require('./envMods/envConfig');
+
 var indexRouter = require('./routes/index');
 var calendarRouter = require('./routes/calendar');
 var loginRouter = require('./routes/login');
@@ -42,8 +44,8 @@ app.get('/actionTest', function(req,res){
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'jakcooper22@gmail.com',
-      pass: 'sara1balls'
+      user: dotenv.email,
+      pass: dotenv.pword
     }
   });
   
@@ -66,15 +68,26 @@ app.get('/actionTest', function(req,res){
 
   MongoClient.connect(urlString, function(err, db){
     str = "";
-    if (err) throw err;
-    var dbo = db.db("mydb");
-    var query = {month:req.query.month, date:req.query.date};
-    console.log(query);
-    dbo.collection("CalendarMast").find(query).toArray((err, result) => {
-      if (err) throw err;
+    try {
+      var dbo = db.db("mydb");
+      var query = {month:req.query.month, date:req.query.date};
+      console.log(query);
+      dbo.collection("CalendarMast").find(query).toArray((err, result) => {
+        //don't know if this is the right setup for try/catch
+      // if (err) throw err;
+      try {
+        res.render('actionTest.ejs', {quotes: result});
+      } catch(err) {
+        console.log('second catch');
+        res.render('error.ejs');
+      }
       // res.send(result.month, result.date);
-      res.render('actionTest.ejs', {quotes: result});
-    });
+      
+      });
+    } catch(err) {
+      console.log('first catch');
+      res.render('error.ejs');
+    }  
   });
 });
 
