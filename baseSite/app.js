@@ -11,9 +11,7 @@ var indexRouter = require('./routes/index');
 var calendarRouter = require('./routes/calendar');
 var loginRouter = require('./routes/login');
 var loginSigUpRouter = require('./routes/loginSigUp');
-
-var MongoClient = require('mongodb').MongoClient;
-var urlString = "mongodb://localhost:27017/";
+var actionTest = require('./routes/actionTest')
 
 var app = express();
 
@@ -38,42 +36,7 @@ app.use('/', calendarRouter);
 app.use('/', indexRouter);
 app.use('/', loginRouter);
 app.use('/', loginSigUpRouter);
-
-app.get('/actionTest', function(req,res){
-
-  email.sendEmail();
-
-  // set trainingWheelProtocol - true or false value, with some special id 
-
-  MongoClient.connect(urlString, function(err, db){
-    str = "";
-    try {
-      var dbo = db.db("mydb");
-      var query = {month:req.query.month, date:req.query.date};
-      console.log(query);
-      dbo.collection("CalendarMast").find(query).toArray((err, result) => {
-        //don't know if this is the right setup for try/catch
-      // if (err) throw err;
-      try {
-        res.render('actionTest.ejs', {quotes: result});
-      } catch(err) {
-        console.log('second catch');
-        res.render('error.ejs');
-      }
-      // res.send(result.month, result.date);
-      
-      });
-    } catch(err) {
-      console.log('first catch');
-      res.render('error.ejs');
-    }  
-  });
-});
-
-// app.get('/loginSigUp', function(req,res){
-//   console.log('wtf');
-//   res.render('loginSigUp.ejs');
-// });
+app.use('/', actionTest)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
