@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 
-const dotenv = require('./envMods/envConfig');
+var email = require('./localModules/createEmail')
 
 var indexRouter = require('./routes/index');
 var calendarRouter = require('./routes/calendar');
@@ -41,28 +41,7 @@ app.use('/', loginSigUpRouter);
 
 app.get('/actionTest', function(req,res){
 
-  var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: dotenv.email,
-      pass: dotenv.pword
-    }
-  });
-  
-  var mailOptions = {
-    from: 'jakcooper22@gmail.com',
-    to: 'jakcooper22@gmail.com',
-    subject: 'Sending Email using Node.js',
-    text: 'That was easy!'
-  };
-  
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-  });
+  email.sendEmail();
 
   // set trainingWheelProtocol - true or false value, with some special id 
 
