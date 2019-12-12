@@ -2,7 +2,7 @@
 
 var configEnv = require('../envMods/envConfig')
 
-console.log(configEnv)
+// console.log(configEnv)
 
 const nodemailer = require("nodemailer");
 
