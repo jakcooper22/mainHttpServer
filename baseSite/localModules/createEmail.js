@@ -2,7 +2,7 @@
 
 var configEnv = require('../envMods/envConfig')
 
-// console.log(configEnv)
+console.log(configEnv)
 
 const nodemailer = require("nodemailer");
 
@@ -23,11 +23,10 @@ exports.sendEmail  = function test1() {
   };
     
   transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
+    if (error) throw error;
+    
+    console.log('Email sent: ' + info.response);
+    
   });    
 }
 
