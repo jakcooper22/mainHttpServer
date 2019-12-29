@@ -1,6 +1,7 @@
 //Training Wheels Protocol
 //create a calendar mast count table for month, day, and count for the inserts
-//
+//Inserting the count to 31 for a specific month
+//change the way to run this script? Call to file with parameters?
 
 
 var MongoClient = require('mongodb').MongoClient;

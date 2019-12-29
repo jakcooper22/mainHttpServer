@@ -6,7 +6,7 @@ var router = express.Router();
 
 router.get('/actionTest', function(req,res){
 
-    email.sendEmail();
+    // email.sendEmail();
   
     // set trainingWheelProtocol - true or false value, with some special id 
   
