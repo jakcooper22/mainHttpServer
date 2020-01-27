@@ -23,9 +23,13 @@ exports.sendEmail  = function test1() {
   };
     
   transporter.sendMail(mailOptions, function(error, info){
-    if (error) throw error;
+    if (error) {
+      console.log('sorry, email was not sent');
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
     
-    console.log('Email sent: ' + info.response);
+    
     
   });    
 }
