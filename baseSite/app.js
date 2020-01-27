@@ -5,13 +5,19 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 
+var email = require('./localModules/createEmail')
+
 var indexRouter = require('./routes/index');
 var calendarRouter = require('./routes/calendar');
-
-var MongoClient = require('mongodb').MongoClient;
-var urlString = "mongodb://localhost:27017/";
+var loginRouter = require('./routes/login');
+var loginSigUpRouter = require('./routes/loginSigUp');
+var actionTest = require('./routes/actionTest')
 
 var app = express();
+
+const nodemailer = require("nodemailer");
+
+// require('./config/passport')(passport);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,18 +34,9 @@ app.use(bodyParser.json());
 
 app.use('/', calendarRouter);
 app.use('/', indexRouter);
-
-app.get('/actionTest', function(req,res){
-  MongoClient.connect(urlString, function(err, db){
-    str = "";
-    if (err) throw err;
-    var dbo = db.db("mydb");
-    dbo.collection("CalendarMast").find().toArray((err, result) => {
-      if (err) throw err;
-      res.render('actionTest.ejs', {quotes: result});
-    });
-  });
-});
+app.use('/', loginRouter);
+app.use('/', loginSigUpRouter);
+app.use('/', actionTest)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

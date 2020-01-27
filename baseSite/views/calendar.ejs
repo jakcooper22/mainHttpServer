@@ -130,12 +130,14 @@ body {font-family: Verdana, sans-serif;}
 <script>
     date2 = new Date();
     date3 = new Date(year1,date2.getMonth(), 1);
-    document.write(String(date3).substring(0,3) + " - Beginning day of the month <br>");
     days = new Date(year1, date2.getMonth() + 1, 0);
-    document.write(days + "<br>");
     test1 = String(days);
     test1 = test1.substring(8,10)
-    document.write(test1 + " - last day");
+    
+     // document.write(days + "<br>");
+    // document.write((date2.getMonth() + 1) + " or " + String(date2).substring(4,7) + " - Month<br>");
+    // document.write(String(date3).substring(0,3) + " - Beginning day of the month <br>");
+    // document.write(test1 + " - last day");
 
     var daysArr = {"Mon": 1,"Tue": 2, "Wed":3, "Thur":4, "Fri":5, "Sat":6, "Sun":7};
 
@@ -146,13 +148,30 @@ body {font-family: Verdana, sans-serif;}
     for(i = 1;i <= test1; i++ ) {
       // document.write(parseInt(String(date2).substr(8,2),10))
       if (i === parseInt(String(date2).substr(8,2),10)) {
-        document.write("<li id=selector"+i+" value="+ i +" onclick=\"clickTest(this,id)\"><span  class=\"active\">" + i + "</span></li>");
+        document.write("<li id="+i+" value="+ i +" onclick=\"loadDoc(this,id,String(date2).substring(4,7))\"><span  class=\"active\">" + i + "</span></li>");
       } else {
-        document.write("<li id=selector"+ i +" value="+i+" onclick=\"clickTest(this,id)\">"+ i +"</li>");
+        document.write("<li id=" + i + " value=" + i + " onclick=\"loadDoc(this,id,String(date2).substring(4,7))\">"+ i +"</li>");
       }
     }
     document.write("</ul>");
+
 </script>
+
+<!-- create appointment. get month and day to submit with form  -->
+<!-- creates appointment and sends email -->
+
+<form action="/" method="post">
+  <!-- add username or first and last name or just phone number  -->
+  <label>Month</label>
+  <input id="mthStr" type="text"  name="month">
+  <label>Day</label>
+  <input id="dayStr"type="text"  name="day">
+  <label>Name</label>
+  <input type="text"  name="name" value="Your Name!">
+  <label>Phone Number</label>
+  <input type="text"  name="Pnum" value="Please!">
+  <button type="submit" >Submit</button>
+</form>
 
 <script>
   function clickTest(elmnt, click1) {
@@ -168,32 +187,34 @@ body {font-family: Verdana, sans-serif;}
   document.write("<p>Showing events for this day - </p>");
   document.write(test11);
 </script>
-
-<form action="/actionTest" method="get">
- 
-  <label for="date">Date: </label>
-  <input type="text" id="date" name="date"></input>
-
-  <input type="submit" value="Submit">
-</form> 
-
-<div id="demo">
-  <h2>The XMLHttpReq Obj - MongoDB</h2>
-  <button type="button" onclick="loadDoc()">Change Content</button>
-  </div>
   
 <script>
-function loadDoc() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("demo").innerHTML =
-      this.responseText;
-    }
+  function loadDoc(elem, test1, mntStr) {
+    setmd(mntStr, test1);
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        for (i=1;i<=5;i++){
+          document.getElementById("appTest").innerHTML =
+          this.responseText;
+        }
+      }
+    };
+    xhttp.open("GET", "/actionTest?month=" + mntStr + "&date=" + test1, true);
+    xhttp.send();
+  }
+</script>
+
+<script>
+  // <!-- set the month and day for the submit button in the form  -->
+  function setmd(mnthStr, dayStr) {
+    console.log(mnthStr);
+    document.getElementById("mthStr").value = mnthStr;
+    document.getElementById("dayStr").value = dayStr;
   };
-  xhttp.open("GET", "/actionTest", true);
-  xhttp.send();
-}
+</script>
+
 </script>
 
 </body>
