@@ -5,7 +5,7 @@ MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
   for (i=1;i <= 31;i++){
-    var myobj = { month: "Dec", date: String(i), notes: "list of appointments" };
+    var myobj = { month: "Jan", date: i, notes: "list of appointments" };
     dbo.collection("CalendarMast").insertOne(myobj, function(err, res) {
       if (err) throw err;
       
